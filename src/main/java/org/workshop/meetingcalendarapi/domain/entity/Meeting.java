@@ -1,4 +1,4 @@
-package org.workshop.domain.entity;
+package org.workshop.meetingcalendarapi.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
