@@ -34,4 +34,9 @@ public class MeetingService {
         meetingsRepository.deleteById(id);
     }
 
+    public void updateMeeting(MeetingDTOForm form) {
+        meetingsRepository.updateMeeting(form.id(), form.title(), form.description(), form.date(), form.time(),
+                form.level(), form.participants());
+    }
+
 }

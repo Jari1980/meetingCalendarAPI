@@ -17,4 +17,5 @@ public record MeetingDTOForm(
         @NotBlank(message = "Meeting level is required")
         MeetingLevel level,
         String participants,
-        String description) {}
+        String description,
+        int id) {}
