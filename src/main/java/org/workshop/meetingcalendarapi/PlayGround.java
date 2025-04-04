@@ -9,6 +9,7 @@ import org.workshop.meetingcalendarapi.repository.MeetingsRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Component
 public class PlayGround implements CommandLineRunner {
@@ -26,9 +27,22 @@ public class PlayGround implements CommandLineRunner {
         meetingsRepository.save(Meeting.builder()
                 .title("First test meeting")
                 .date(LocalDate.parse("2025-04-03"))
-                .time(LocalDateTime.parse(LocalDateTime.now().toString()))
+                .time(LocalTime.parse("10:20"))
                 .participants("Broccoli")
                 .build());
+        meetingsRepository.save(Meeting.builder()
+                .title("Second test meeting")
+                .date(LocalDate.parse("2025-04-04"))
+                .time(LocalTime.parse("10:00"))
+                .participants("Broccoli")
+                .build());
+        meetingsRepository.save(Meeting.builder()
+                .title("Third test meeting")
+                .date(LocalDate.parse("2025-04-04"))
+                .time(LocalTime.parse("12:00"))
+                .participants("Broccoli")
+                .build());
+
         System.out.println("test meeting created");
 
     }
