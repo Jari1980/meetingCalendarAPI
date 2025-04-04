@@ -2,6 +2,7 @@ package org.workshop.meetingcalendarapi.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.workshop.meetingcalendarapi.domain.model.MeetingLevel;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,6 +28,8 @@ public class Meeting {
     private LocalDate date;
     @NonNull
     private LocalTime time;
+    @NonNull
+    private MeetingLevel level;
     private String participants; //This could be changed to list of users later on, if/when I add users
     private String description;
 }
