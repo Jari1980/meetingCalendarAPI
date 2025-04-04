@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -25,7 +26,7 @@ public class Meeting {
     @NonNull
     private LocalDate date;
     @NonNull
-    private LocalDateTime time;
+    private LocalTime time;
     private String participants; //This could be changed to list of users later on, if/when I add users
     private String description;
 }
