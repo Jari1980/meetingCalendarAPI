@@ -2,6 +2,7 @@ package org.workshop.meetingcalendarapi.controller;
 
 
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,13 @@ public class HomeController {
         meetingService.createMeeting(form);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/meetings/delete{id}")
+    public ResponseEntity<Void> deleteMeeting(@PathParam("id") int id){
+        meetingService.deleteMeeting(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -30,4 +30,8 @@ public class MeetingService {
         meetingsRepository.save(meeting);
     }
 
+    public void deleteMeeting(int id) {
+        meetingsRepository.deleteById(id);
+    }
+
 }
