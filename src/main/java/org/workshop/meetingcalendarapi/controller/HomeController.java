@@ -1,9 +1,11 @@
 package org.workshop.meetingcalendarapi.controller;
 
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +50,15 @@ public class HomeController {
     @DeleteMapping("/meetings/delete{id}")
     public ResponseEntity<Void> deleteMeeting(@PathParam("id") int id){
         meetingService.deleteMeeting(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Transactional
+    @Modifying
+    @PutMapping("meetings/update")
+    public ResponseEntity<Void> updateMeeting(@RequestBody @Valid MeetingDTOForm form){
+        meetingService.updateMeeting(form);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
