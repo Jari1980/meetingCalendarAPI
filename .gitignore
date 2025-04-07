@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### MailStuff
+org/workshop/meetingcalendarapi/secrets
+
 ### STS ###
 .apt_generated
 .classpath

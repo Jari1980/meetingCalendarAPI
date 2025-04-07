@@ -1,6 +1,11 @@
 package org.workshop.meetingcalendarapi.controller;
 
 
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
@@ -9,26 +14,37 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.workshop.meetingcalendarapi.domain.dto.ContactDTOForm;
 import org.workshop.meetingcalendarapi.domain.dto.MeetingDTOForm;
 import org.workshop.meetingcalendarapi.domain.dto.MeetingDTOView;
 import org.workshop.meetingcalendarapi.domain.entity.Meeting;
+import org.workshop.meetingcalendarapi.domain.model.Mail;
 import org.workshop.meetingcalendarapi.repository.MeetingsRepository;
+import org.workshop.meetingcalendarapi.secrets.Props;
+import org.workshop.meetingcalendarapi.service.MailService;
 import org.workshop.meetingcalendarapi.service.MeetingService;
 
-import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5174")
+import javax.annotation.processing.SupportedOptions;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+
+@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "", allowPrivateNetwork = "")
+//@CrossOrigin(origins = "http://localhost:5174")
 @RequestMapping("/api/v1/project")
 @RestController
 public class HomeController {
 
     private MeetingsRepository meetingsRepository;
     private MeetingService meetingService;
+    private MailService mailService;
 
     @Autowired
-    public HomeController(MeetingsRepository meetingsRepository, MeetingService meetingService) {
+    public HomeController(MeetingsRepository meetingsRepository, MeetingService meetingService, MailService mailService) {
         this.meetingsRepository = meetingsRepository;
         this.meetingService = meetingService;
+        this.mailService = mailService;
     }
 
     // Will likely change return type DTOView if/when I add user, also service
@@ -47,6 +63,7 @@ public class HomeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @CrossOrigin(origins = "http://localhost:5174")
     @DeleteMapping("/meetings/delete{id}")
     public ResponseEntity<Void> deleteMeeting(@PathParam("id") int id){
         meetingService.deleteMeeting(id);
@@ -61,6 +78,49 @@ public class HomeController {
         meetingService.updateMeeting(form);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("contact")
+    public ResponseEntity<Void> contact(@RequestBody @Valid ContactDTOForm form) throws MessagingException {
+
+        // Creating mail from form
+        Mail mail = mailService.createMail(form);
+
+        // Getting secret creds
+        Props cred = new Props();
+
+        //Getting mail properties
+        Properties prop = mailService.getMailProperties();
+
+
+        Session session = Session.getInstance(prop, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(cred.username, cred.password);
+            }
+        });
+
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(mail.getEmail()));
+        message.setRecipients(
+                Message.RecipientType.TO, InternetAddress.parse(cred.email));
+        message.setSubject(mail.getName());
+
+        String msg = mail.getMessage() + ", send from: " + mail.getEmail() + ", likes Broccoli: " + mail.isBroccoli();
+
+        MimeBodyPart mimeBodyPart = new MimeBodyPart();
+        mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(mimeBodyPart);
+        message.setContent(multipart);
+
+        if (mail.getName() == null) {
+            return new ResponseEntity(HttpStatus.I_AM_A_TEAPOT);
+        } else {
+            Transport.send(message);
+            return new ResponseEntity(HttpStatus.OK);
+        }
     }
 
 }
