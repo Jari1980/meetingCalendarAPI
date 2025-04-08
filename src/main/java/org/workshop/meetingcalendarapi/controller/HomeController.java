@@ -92,7 +92,6 @@ public class HomeController {
         //Getting mail properties
         Properties prop = mailService.getMailProperties();
 
-
         Session session = Session.getInstance(prop, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -100,20 +99,8 @@ public class HomeController {
             }
         });
 
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(mail.getEmail()));
-        message.setRecipients(
-                Message.RecipientType.TO, InternetAddress.parse(cred.email));
-        message.setSubject(mail.getName());
-
-        String msg = mail.getMessage() + ", send from: " + mail.getEmail() + ", likes Broccoli: " + mail.isBroccoli();
-
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-        message.setContent(multipart);
+        // Creating message and setting values
+        Message message = mailService.createMessage(mail, session, cred);
 
         if (mail.getName() == null) {
             return new ResponseEntity(HttpStatus.I_AM_A_TEAPOT);

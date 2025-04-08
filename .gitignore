@@ -6,6 +6,7 @@ target/
 
 ### MailStuff
 org/workshop/meetingcalendarapi/secrets
+src/main/java/org/workshop/meetingcalendarapi/secrets/Props.java
 
 ### STS ###
 .apt_generated
