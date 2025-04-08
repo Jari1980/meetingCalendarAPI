@@ -32,4 +32,7 @@ public class Meeting {
     private MeetingLevel level;
     private String participants; //This could be changed to list of users later on, if/when I add users
     private String description;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private CalendarUser user;
 }
