@@ -4,16 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.workshop.meetingcalendarapi.domain.dto.MeetingDTOForm;
 import org.workshop.meetingcalendarapi.domain.entity.Meeting;
+import org.workshop.meetingcalendarapi.repository.CalendarUserRepository;
 import org.workshop.meetingcalendarapi.repository.MeetingsRepository;
 
 @Service
 public class MeetingService {
 
     private MeetingsRepository meetingsRepository;
+    private CalendarUserRepository calendarUserRepository;
 
     @Autowired
-    public MeetingService(MeetingsRepository meetingsRepository) {
+    public MeetingService(MeetingsRepository meetingsRepository, CalendarUserRepository calendarUserRepository) {
         this.meetingsRepository = meetingsRepository;
+        this.calendarUserRepository = calendarUserRepository;
     }
 
 
@@ -26,6 +29,7 @@ public class MeetingService {
                 .time(form.time())
                 .participants(form.participants())
                 .description(form.description())
+                .user(calendarUserRepository.getReferenceById("TestUser"))
                 .build();
         meetingsRepository.save(meeting);
     }

@@ -9,10 +9,12 @@ import jakarta.mail.internet.MimeMultipart;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 import org.workshop.meetingcalendarapi.domain.dto.ContactDTOForm;
 import org.workshop.meetingcalendarapi.domain.dto.MeetingDTOForm;
@@ -40,12 +42,17 @@ public class HomeController {
     private MeetingService meetingService;
     private MailService mailService;
 
+
+
     @Autowired
     public HomeController(MeetingsRepository meetingsRepository, MeetingService meetingService, MailService mailService) {
         this.meetingsRepository = meetingsRepository;
         this.meetingService = meetingService;
         this.mailService = mailService;
     }
+
+
+
 
     // Will likely change return type DTOView if/when I add user, also service
 
