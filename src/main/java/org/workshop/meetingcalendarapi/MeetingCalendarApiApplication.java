@@ -13,16 +13,4 @@ public class MeetingCalendarApiApplication {
         SpringApplication.run(MeetingCalendarApiApplication.class, args);
     }
 
-
-    //This should enable Cors in React frontend, still got Cors error but could be else keeping for trying
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/v1/project/meetings/") .allowedOrigins("*"); //("http://localhost:5174");
-            }
-        };
-    }
-
 }
