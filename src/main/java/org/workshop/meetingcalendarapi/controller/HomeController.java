@@ -15,6 +15,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.workshop.meetingcalendarapi.domain.dto.ContactDTOForm;
 import org.workshop.meetingcalendarapi.domain.dto.MeetingDTOForm;
@@ -52,6 +53,16 @@ public class HomeController {
     }
 
 
+    @GetMapping("/authenticate")
+    public ResponseEntity<Boolean> authenticate(){
+        if(SecurityContextHolder.getContext().getAuthentication() == null){
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        else{
+            return ResponseEntity.ok(true);
+        }
+    }
 
 
     // Will likely change return type DTOView if/when I add user, also service
