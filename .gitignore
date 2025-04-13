@@ -4,9 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### MailStuff
+### Mail creds
 org/workshop/meetingcalendarapi/secrets
 src/main/java/org/workshop/meetingcalendarapi/secrets/Props.java
+
+### Azure properties
+src/main/resources/application-azure.properties
 
 ### STS ###
 .apt_generated
