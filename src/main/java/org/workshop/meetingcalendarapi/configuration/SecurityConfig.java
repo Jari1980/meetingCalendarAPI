@@ -62,13 +62,13 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // //This is needed for me to add in order to resolve Cors issue after adding Spring security also adding WebConfig
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginProcessingUrl("/api/v1/project/login").permitAll();
+                    httpSecurityFormLoginConfigurer.loginProcessingUrl("/api/v1/project/login").permitAll(); //Not using this, but maybe Ill try to add later
                 })
                 .logout(httpSecurityLogoutConfigurer -> {
-                    httpSecurityLogoutConfigurer.logoutUrl("/api/v1/project/logout").permitAll();
+                    httpSecurityLogoutConfigurer.logoutUrl("/api/v1/project/logout").permitAll(); //Not using this, but maybe Ill try to add later
                 })
                 .authorizeHttpRequests(registry ->{
-                    registry.requestMatchers("/api/v1/project/signup",
+                    registry.requestMatchers("/api/v1/project/signup",  //Not using this, but maybe Ill try to add later
                             "http://localhost:8080/api/v1/project/signup").permitAll();
                 })
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
