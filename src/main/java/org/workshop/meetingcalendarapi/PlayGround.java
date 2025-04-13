@@ -40,7 +40,7 @@ public class PlayGround implements CommandLineRunner {
                 .password(customPasswordEncoder.encode("1234"))
                 .build());
 
-
+/*
         meetingsRepository.save(Meeting.builder()
                 .title("First test meeting")
                 .date(LocalDate.parse("2025-04-03"))
@@ -68,7 +68,7 @@ public class PlayGround implements CommandLineRunner {
                 .build());
 
         System.out.println("test meeting created");
-
+*/
     }
 
 }
