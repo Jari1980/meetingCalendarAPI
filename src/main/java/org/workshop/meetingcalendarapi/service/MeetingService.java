@@ -29,7 +29,7 @@ public class MeetingService {
                 .time(form.time())
                 .participants(form.participants())
                 .description(form.description())
-                .user(calendarUserRepository.getReferenceById("TestUser"))
+                .user(calendarUserRepository.getReferenceById("TestUser")) //Hardcoded existing user since I wasnt able to go all the way with Spring security this time
                 .build();
         meetingsRepository.save(meeting);
     }
