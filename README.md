@@ -1,7 +1,7 @@
 <h1>Meeting Calendar API</h1>
 <br/>
 <p>This is the backend part, Restfull API build with Java Spring (maven) as final project in Lexicon Växjö for fullstack developer focusing Java and React.</p>
-<p>The project wraps upp larger parts of content covered during the course and time I put into this project was around 3-4 weeks. Roughly 2.2 weeks for frontend, 1.2 weeks for backend and 1 day to move project to Azure, however I had plenty of help from previous workshops and looking back over past lecture material.</p>
+<p>The project wraps upp larger parts of content covered during the course and time I put into this project was around 3 weeks. Roughly 2 weeks for frontend, 1 week for backend and 1 day to move project to Azure, however I had plenty of help from previous workshops and looking back over past lecture material.</p>
 <br/>
 <p>Main idea for this API is to provide and manage meetings to a front end application, additionally I added contact and login feature and moved this to the cloud as extra.<p/>
 <br/>
